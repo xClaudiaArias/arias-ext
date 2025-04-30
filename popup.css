@@ -1,0 +1,36 @@
+.issue {
+    padding: 8px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    font-size: 14px;
+    border-left: 5px solid;
+}
+
+.issue strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.issue[data-impact="critical"] {
+    background-color: #ffe5e5;
+    border-color: #d32f2f;
+    color: #b71c1c;
+}
+
+.issue[data-impact="serious"] {
+    background-color: #fff3e0;
+    border-color: #f57c00;
+    color: #e65100;
+}
+
+.issue[data-impact="moderate"] {
+    background-color: #e3f2fd;
+    border-color: #1976d2;
+    color: #0d47a1;
+}
+
+.issue[data-impact="minor"] {
+    background-color: #f3e5f5;
+    border-color: #8e24aa;
+    color: #4a148c;
+}

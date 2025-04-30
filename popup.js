@@ -12,34 +12,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     issueCount.textContent = ""; 
 
                     if (response && response.issues && response.issues.length > 0) {
+                        const impactOrder = { critical: 1, serious: 2, moderate: 3, minor: 4 };
+                        response.issues.sort((a, b) => {
+                            return (impactOrder[a.impact] || 5) - (impactOrder[b.impact] || 5);
+                        });
+
                         issueCount.textContent = `${response.issues.length} issues found`;
                     
                         response.issues.forEach(issue => {
                             const div = document.createElement('div');
                             div.className = 'issue';
-                    
-                            let bgColor;
-                            switch (issue.impact) {
-                                case 'critical':
-                                    bgColor = '#ff4d4d'; // Red
-                                    break;
-                                case 'serious':
-                                    bgColor = '#ff944d'; // Orange
-                                    break;
-                                case 'moderate':
-                                    bgColor = '#ffd11a'; // Yellow
-                                    break;
-                                case 'minor':
-                                    bgColor = '#a3d977'; // Light green
-                                    break;
-                                default:
-                                    bgColor = '#e0e0e0'; // Gray fallback
-                            }
-                    
-                            div.style.backgroundColor = bgColor;
-                            div.style.padding = '10px';
-                            div.style.marginBottom = '10px';
-                            div.style.borderRadius = '8px';
+                            div.setAttribute('data-impact', issue.impact);
                     
                             div.innerHTML = `
                                 <strong>${issue.impact.toUpperCase()}</strong>: ${issue.help}<br/>
@@ -56,4 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    document.getElementById("clear").addEventListener("click", () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            chrome.tabs.sendMessage(tabs[0].id, { action: "clearHighlights" });
+        });
+    });
+
 });
