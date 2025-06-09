@@ -28,7 +28,10 @@
         {
             "matches": ["<all_urls>"],
             "js": ["libs/axe.min.js", "content.js"],
-            "run_at": "document_idle"
+            "run_at": "document_idle",
+            "host_permissions": [
+                "<all_urls>"
+            ]
         }
     ],
     "web_accessible_resources": [
