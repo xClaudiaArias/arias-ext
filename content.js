@@ -1,9 +1,7 @@
-// post-MVP ARIA Helper
 const highlightClass = "a11y-outline";
 
-
 console.log("ARIAS Helper Content Script Loaded");
-// content.js
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "getAccessibilityReport") {
         if (window.axe) {
